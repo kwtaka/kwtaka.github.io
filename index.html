@@ -286,4 +286,281 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GTMテストサイト</div>
+                <ul class="nav-links">
+                    <li><a href="#home" id="nav-home">ホーム</a></li>
+                    <li><a href="#features" id="nav-features">機能</a></li>
+                    <li><a href="#contact" id="nav-contact">お問い合わせ</a></li>
+                    <li><a href="#about" id="nav-about">会社概要</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="hero" id="home">
+                <h1>GTMテスト用サイトへようこそ</h1>
+                <p>Googleタグマネージャーの動作確認に最適なテストサイトです</p>
+                <a href="#features" class="cta-button" id="main-cta">詳細を見る</a>
+            </section>
+            
+            <section class="stats" id="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="visitors-count">10,234</div>
+                    <div>訪問者数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="conversions-count">1,567</div>
+                    <div>コンバージョン数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="events-count">45,890</div>
+                    <div>イベント数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="downloads-count">2,341</div>
+                    <div>ダウンロード数</div>
+                </div>
+            </section>
+            
+            <section class="action-buttons">
+                <button class="action-btn btn-primary" id="btn-info" data-category="button" data-action="click" data-label="info">
+                    情報を見る
+                </button>
+                <button class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
+                    資料ダウンロード
+                </button>
+                <button class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="newsletter">
+                    メルマガ登録
+                </button>
+                <button class="action-btn btn-danger" id="btn-purchase" data-category="ecommerce" data-action="click" data-label="premium-plan">
+                    プレミアム購入
+                </button>
+            </section>
+            
+            <section class="features" id="features">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #333; font-size: 2.5rem;">主要機能</h2>
+                <div class="features-grid">
+                    <div class="feature-card" data-feature="analytics">
+                        <h3>アナリティクス連携</h3>
+                        <p>Google Analytics 4との完全な連携でデータを効率的に収集・分析できます。</p>
+                    </div>
+                    <div class="feature-card" data-feature="events">
+                        <h3>イベントトラッキング</h3>
+                        <p>ボタンクリック、フォーム送信、ページスクロールなど様々なユーザー行動を追跡。</p>
+                    </div>
+                    <div class="feature-card" data-feature="conversion">
+                        <h3>コンバージョン測定</h3>
+                        <p>目標達成やEコマース取引を正確に測定し、ROIを最適化できます。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="contact-form" id="contact">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">お問い合わせ</h2>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">お名前</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">会社名</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">メッセージ</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="form-submit">送信する</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GTMテストサイト. All rights reserved. | <a href="#privacy" style="color: #667eea;">プライバシーポリシー</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // データレイヤーの初期化
+        window.dataLayer = window.dataLayer || [];
+        
+        // GTM用の汎用関数
+        function gtmPush(eventData) {
+            window.dataLayer.push(eventData);
+            console.log('GTM Event:', eventData);
+        }
+        
+        // ページビューの送信
+        gtmPush({
+            'event': 'page_view',
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_path': window.location.pathname
+        });
+        
+        // ボタンクリックイベント
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const category = this.dataset.category || 'button';
+                const action = this.dataset.action || 'click';
+                const label = this.dataset.label || this.textContent.trim();
+                
+                gtmPush({
+                    'event': 'button_click',
+                    'event_category': category,
+                    'event_action': action,
+                    'event_label': label,
+                    'button_id': this.id,
+                    'button_text': this.textContent.trim()
+                });
+                
+                // 特定のボタンの場合は追加のイベントも送信
+                if (this.id === 'btn-purchase') {
+                    gtmPush({
+                        'event': 'purchase_intent',
+                        'currency': 'JPY',
+                        'value': 9800,
+                        'item_name': 'プレミアムプラン'
+                    });
+                } else if (this.id === 'btn-download') {
+                    gtmPush({
+                        'event': 'file_download',
+                        'file_name': 'company-guide.pdf',
+                        'file_extension': 'pdf',
+                        'link_url': '#download'
+                    });
+                }
+            });
+        });
+        
+        // フォーム送信イベント
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            gtmPush({
+                'event': 'form_submit',
+                'form_id': 'contact-form',
+                'form_name': 'お問い合わせフォーム',
+                'form_data': formObject
+            });
+            
+            // 成功メッセージの表示
+            alert('お問い合わせありがとうございます！後日担当者よりご連絡いたします。');
+            
+            // フォームのリセット
+            this.reset();
+        });
+        
+        // ナビゲーションクリック
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                gtmPush({
+                    'event': 'navigation_click',
+                    'link_text': this.textContent,
+                    'link_url': this.getAttribute('href'),
+                    'link_id': this.id
+                });
+                
+                // スムーススクロール
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // スクロール深度の測定
+        let scrollDepthMarks = [25, 50, 75, 90];
+        let firedEvents = [];
+        
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+            
+            scrollDepthMarks.forEach(mark => {
+                if (scrollPercent >= mark && !firedEvents.includes(mark)) {
+                    firedEvents.push(mark);
+                    gtmPush({
+                        'event': 'scroll_depth',
+                        'scroll_percentage': mark,
+                        'page_title': document.title
+                    });
+                }
+            });
+        });
+        
+        // タイマーイベント（ページ滞在時間）
+        let timeOnPage = 0;
+        const timeIntervals = [10, 30, 60, 120, 300]; // 秒
+        let timeFiredEvents = [];
+        
+        setInterval(() => {
+            timeOnPage += 5;
+            timeIntervals.forEach(interval => {
+                if (timeOnPage >= interval && !timeFiredEvents.includes(interval)) {
+                    timeFiredEvents.push(interval);
+                    gtmPush({
+                        'event': 'timing',
+                        'timing_category': 'engagement',
+                        'timing_variable': 'time_on_page',
+                        'timing_value': interval,
+                        'page_title': document.title
+                    });
+                }
+            });
+        }, 5000);
+        
+        // 外部リンククリック
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.hostname !== window.location.hostname) {
+                gtmPush({
+                    'event': 'outbound_click',
+                    'link_url': e.target.href,
+                    'link_text': e.target.textContent
+                });
+            }
+        });
+        
+        // カスタムイベント例
+        function triggerCustomEvent(eventName, customData = {}) {
+            gtmPush({
+                'event': eventName,
+                'custom_timestamp': new Date().toISOString(),
+                ...customData
+            });
+        }
+        
+        // 5秒後にエンゲージメントイベントを発火
+        setTimeout(() => {
+            triggerCustomEvent('user_engaged', {
+                'engagement_time': 5,
+                'page_title': document.title
+            });
+        }, 5000);
+    </script>
+</body>
 </html>
