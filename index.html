@@ -200,6 +200,12 @@
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
         
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -258,6 +264,31 @@
             text-align: center;
             padding: 2rem 0;
             margin-top: 4rem;
+        }
+        
+        /* ローディング状態のスタイル */
+        .loading {
+            position: relative;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin: auto;
+            border: 2px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s ease infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
         
         @keyframes fadeInUp {
@@ -501,16 +532,23 @@
             });
         });
         
-        // フォーム送信イベント
+        // フォーム送信イベント（修正版）
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const submitBtn = document.getElementById('form-submit');
             const formData = new FormData(this);
             const formObject = {};
             formData.forEach((value, key) => {
                 formObject[key] = value;
             });
             
+            // ボタンを無効化してローディング状態に
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '送信中...';
+            submitBtn.classList.add('loading');
+            
+            // GTMイベントの送信
             gtmPush({
                 'event': 'form_submit',
                 'form_id': 'contact-form',
@@ -518,11 +556,32 @@
                 'form_data': formObject
             });
             
-            // 成功メッセージの表示
-            alert('お問い合わせありがとうございます！後日担当者よりご連絡いたします。');
-            
-            // フォームのリセット
-            this.reset();
+            // 送信処理のシミュレーション（実際の処理時間を模擬）
+            setTimeout(() => {
+                // コンバージョンイベントの送信
+                gtmPush({
+                    'event': 'conversion',
+                    'conversion_type': 'contact_form',
+                    'conversion_value': 1
+                });
+                
+                // 完了ページへリダイレクト（URLパラメータ付き）
+                const params = new URLSearchParams({
+                    name: formObject.name || '',
+                    email: formObject.email || '',
+                    company: formObject.company || '',
+                    timestamp: new Date().toISOString()
+                });
+                
+                // 実際のサイトでは完了ページのURLを指定
+                // 例：window.location.href = 'thank-you.html?' + params.toString();
+                // デモ用にアラート表示してからダミーページに遷移
+                alert('お問い合わせありがとうございます！完了ページに移動します。');
+                
+                // ダミーの完了ページURL（実際には存在する完了ページのURLを指定）
+                window.location.href = 'contact-complete.html?' + params.toString();
+                
+            }, 1500); // 1.5秒のローディング時間を設定
         });
         
         // ナビゲーションクリック
