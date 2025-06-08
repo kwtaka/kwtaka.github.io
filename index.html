@@ -252,6 +252,7 @@
         .btn-success { background: #2ecc71; color: white; }
         .btn-warning { background: #f39c12; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
+        .btn-info { background: #17a2b8; color: white; }
         
         .action-btn:hover {
             transform: translateY(-2px);
@@ -378,6 +379,9 @@
                 </a>
                 <a href="purchase.html" class="action-btn btn-danger" id="btn-purchase" data-category="ecommerce" data-action="click" data-label="premium-plan">
                     プレミアム購入
+                </a>
+                <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7" class="action-btn btn-info" id="btn-reservation" data-category="appointment" data-action="click" data-label="medical-reservation" target="_blank">
+                    医療予約サイト
                 </a>
             </section>
             
@@ -529,6 +533,31 @@
                 'currency': 'JPY',
                 'value': 9800,
                 'item_name': 'プレミアムプラン'
+            });
+        });
+        
+        // 「医療予約サイト」リンクのクリックイベント
+        document.getElementById('btn-reservation').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'appointment';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+            
+            // 外部リンククリック（医療予約サイト）のイベントも送信
+            gtmPush({
+                'event': 'outbound_click',
+                'link_url': this.getAttribute('href'),
+                'link_text': this.textContent.trim(),
+                'link_category': 'medical_reservation'
             });
         });
         
