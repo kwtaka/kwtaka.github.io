@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メルマガ登録 - GTMテストサイト</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        main {
+            padding: 4rem 0;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .newsletter-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.2rem;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .benefits {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .benefits h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GTMテストサイト</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" id="nav-home">ホーム</a></li>
+                    <li><a href="info.html" id="nav-info">情報</a></li>
+                    <li><a href="#" id="nav-newsletter">メルマガ登録</a></li>
+                    <li><a href="#about" id="nav-about">会社概要</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>メルマガ登録</h1>
+                <p>最新情報やお得な情報をお届けします</p>
+            </section>
+            
+            <section class="benefits">
+                <h3>メルマガで得られる特典</h3>
+                <ul>
+                    <li>最新のマーケティング情報を毎週お届け</li>
+                    <li>限定セミナーやイベントの先行案内</li>
+                    <li>お得なキャンペーン情報</li>
+                    <li>業界の最新トレンドと実践的なノウハウ</li>
+                    <li>無料の資料やテンプレートのダウンロード</li>
+                </ul>
+            </section>
+            
+            <section class="newsletter-form">
+                <form id="newsletter-form">
+                    <div class="form-section">
+                        <h3>基本情報</h3>
+                        <div class="form-group">
+                            <label for="name">お名前 *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">会社名</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="position">役職</label>
+                            <input type="text" id="position" name="position">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>興味のある分野</h3>
+                        <div class="form-group">
+                            <label for="interests">興味のある分野 *</label>
+                            <select id="interests" name="interests" required>
+                                <option value="">選択してください</option>
+                                <option value="digital-marketing">デジタルマーケティング</option>
+                                <option value="web-analytics">Webアナリティクス</option>
+                                <option value="seo-sem">SEO・SEM</option>
+                                <option value="social-media">ソーシャルメディア</option>
+                                <option value="content-marketing">コンテンツマーケティング</option>
+                                <option value="email-marketing">メールマーケティング</option>
+                                <option value="automation">マーケティングオートメーション</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">マーケティング経験年数</label>
+                            <select id="experience" name="experience">
+                                <option value="">選択してください</option>
+                                <option value="beginner">1年未満</option>
+                                <option value="1-3years">1-3年</option>
+                                <option value="3-5years">3-5年</option>
+                                <option value="5-10years">5-10年</option>
+                                <option value="10years+">10年以上</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>配信設定</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="weekly-newsletter" name="newsletter-types" value="weekly" checked>
+                            <label for="weekly-newsletter">週刊ニュースレター（おすすめ）</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="event-newsletter" name="newsletter-types" value="events">
+                            <label for="event-newsletter">イベント・セミナー情報</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="campaign-newsletter" name="newsletter-types" value="campaigns">
+                            <label for="campaign-newsletter">キャンペーン・お得情報</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="product-newsletter" name="newsletter-types" value="products">
+                            <label for="product-newsletter">新製品・サービス情報</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
+                            <label for="privacy-agree">プライバシーポリシーに同意します *</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="marketing-agree" name="marketing-agree">
+                            <label for="marketing-agree">マーケティング目的での情報利用に同意します</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="newsletter-submit">メルマガ登録する</button>
+                </form>
+            </section>
+            
+            <div style="text-align: center;">
+                <a href="index.html" class="back-link" id="back-to-home">ホームに戻る</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GTMテストサイト. All rights reserved. | <a href="#privacy" style="color: #667eea;">プライバシーポリシー</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // データレイヤーの初期化
+        window.dataLayer = window.dataLayer || [];
+        
+        // GTM用の汎用関数
+        function gtmPush(eventData) {
+            window.dataLayer.push(eventData);
+            console.log('GTM Event:', eventData);
+        }
+        
+        // ページビューの送信
+        gtmPush({
+            'event': 'page_view',
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_path': window.location.pathname,
+            'page_type': 'newsletter_signup'
+        });
+        
+        // フォーム送信イベント
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const formObject = {};
+            const newsletterTypes = [];
+            
+            // フォームデータを整理
+            formData.forEach((value, key) => {
+                if (key === 'newsletter-types') {
+                    newsletterTypes.push(value);
+                } else {
+                    formObject[key] = value;
+                }
+            });
+            
+            formObject['newsletter_types'] = newsletterTypes;
+            
+            // メルマガ登録イベントをGTMに送信
+            gtmPush({
+                'event': 'newsletter_signup',
+                'form_id': 'newsletter-form',
+                'form_name': 'メルマガ登録フォーム',
+                'user_name': formObject.name,
+                'user_email': formObject.email,
+                'user_company': formObject.company,
+                'user_position': formObject.position,
+                'user_interests': formObject.interests,
+                'user_experience': formObject.experience,
+                'newsletter_types': newsletterTypes,
+                'signup_timestamp': new Date().toISOString()
+            });
+            
+            // コンバージョンイベント
+            gtmPush({
+                'event': 'conversion',
+                'conversion_type': 'newsletter_signup',
+                'conversion_value': 1,
+                'conversion_label': 'newsletter_registration'
+            });
+            
+            // 成功メッセージの表示
+            alert('メルマガ登録ありがとうございます！確認メールをお送りしましたのでご確認ください。');
+            
+            // フォームのリセット
+            this.reset();
+            
+            // 少し遅延させてからホームページに戻る
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+        
+        // ナビゲーションクリック
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                gtmPush({
+                    'event': 'navigation_click',
+                    'link_text': this.textContent,
+                    'link_url': this.getAttribute('href'),
+                    'link_id': this.id,
+                    'source_page': 'newsletter_signup'
+                });
+            });
+        });
+        
+        // 「ホームに戻る」ボタンのクリック
+        document.getElementById('back-to-home').addEventListener('click', function(e) {
+            gtmPush({
+                'event': 'button_click',
+                'event_category': 'navigation',
+                'event_action': 'click',
+                'event_label': 'back_to_home',
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'source_page': 'newsletter_signup'
+            });
+        });
+        
+        // フォーム項目の変更イベント
+        document.querySelectorAll('#newsletter-form input, #newsletter-form select').forEach(field => {
+            field.addEventListener('change', function() {
+                if (this.type !== 'checkbox') {
+                    gtmPush({
+                        'event': 'form_field_change',
+                        'field_name': this.name,
+                        'field_id': this.id,
+                        'field_value': this.value,
+                        'form_id': 'newsletter-form'
+                    });
+                }
+            });
+        });
+        
+        // チェックボックスの変更イベント
+        document.querySelectorAll('#newsletter-form input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                gtmPush({
+                    'event': 'checkbox_change',
+                    'checkbox_name': this.name,
+                    'checkbox_id': this.id,
+                    'checkbox_checked': this.checked,
+                    'form_id': 'newsletter-form'
+                });
+            });
+        });
+        
+        // スクロール深度の測定
+        let scrollDepthMarks = [25, 50, 75, 90];
+        let firedEvents = [];
+        
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+            
+            scrollDepthMarks.forEach(mark => {
+                if (scrollPercent >= mark && !firedEvents.includes(mark)) {
+                    firedEvents.push(mark);
+                    gtmPush({
+                        'event': 'scroll_depth',
+                        'scroll_percentage': mark,
+                        'page_title': document.title,
+                        'page_type': 'newsletter_signup'
+                    });
+                }
+            });
+        });
+        
+        // ページ滞在時間の測定
+        let timeOnPage = 0;
+        const timeIntervals = [10, 30, 60, 120]; // 秒
+        let timeFiredEvents = [];
+        
+        setInterval(() => {
+            timeOnPage += 5;
+            timeIntervals.forEach(interval => {
+                if (timeOnPage >= interval && !timeFiredEvents.includes(interval)) {
+                    timeFiredEvents.push(interval);
+                    gtmPush({
+                        'event': 'timing',
+                        'timing_category': 'engagement',
+                        'timing_variable': 'time_on_page',
+                        'timing_value': interval,
+                        'page_title': document.title,
+                        'page_type': 'newsletter_signup'
+                    });
+                }
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
