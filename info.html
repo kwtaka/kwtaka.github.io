@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サービス情報 - GTMテストサイト</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #4facfe;
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        main {
+            padding: 3rem 0;
+        }
+        
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .info-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .pricing-table {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin: 3rem 0;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            border-color: #4facfe;
+            transform: translateY(-5px);
+        }
+        
+        .pricing-card.featured {
+            border-color: #4facfe;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-period {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .featured .plan-period {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .featured .plan-features li {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .plan-button {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        }
+        
+        .comparison-table {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin: 3rem 0;
+            overflow-x: auto;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: #ff6b6b;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GTMテストサイト</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" id="nav-home">ホーム</a></li>
+                    <li><a href="download.html" id="nav-download">ダウンロード</a></li>
+                    <li><a href="newsletter.html" id="nav-newsletter">メルマガ</a></li>
+                    <li><a href="purchase.html" id="nav-purchase">購入</a></li>
+                    <li><a href="index.html" class="back-btn" id="back-to-home">戻る</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="page-header">
+                <h1>サービス詳細情報</h1>
+                <p>GTMテストプラットフォームの詳細な機能とプランをご紹介します</p>
+            </section>
+            
+            <section class="info-section">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #333;">主要機能の詳細</h2>
+                <div class="feature-grid">
+                    <div class="feature-item" data-feature="advanced-analytics">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">高度なアナリティクス</div>
+                        <p>リアルタイムデータ処理、カスタムダッシュボード、AIによる予測分析機能を提供。ユーザー行動の詳細な分析が可能です。</p>
+                    </div>
+                    <div class="feature-item" data-feature="automation">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">マーケティング自動化</div>
+                        <p>トリガーベースの自動配信、セグメント化、パーソナライゼーション機能により、効率的なマーケティングを実現。</p>
+                    </div>
+                    <div class="feature-item" data-feature="integration">
+                        <div class="feature-icon">🔗</div>
+                        <div class="feature-title">システム連携</div>
+                        <p>CRM、ERP、ECサイトなど既存システムとの完全連携。API提供により柔軟なカスタマイズが可能。</p>
+                    </div>
+                    <div class="feature-item" data-feature="security">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">セキュリティ</div>
+                        <p>エンタープライズレベルのセキュリティ、GDPR準拠、暗号化通信により、データの安全性を確保。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="pricing-table">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #333;">料金プラン</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="plan-name">ベーシック</div>
+                        <div class="plan-price">¥2,980</div>
+                        <div class="plan-period">月額</div>
+                        <ul class="plan-features">
+                            <li>基本的なアナリティクス</li>
+                            <li>月間1万PV対応</li>
+                            <li>基本サポート</li>
+                            <li>標準レポート</li>
+                        </ul>
+                        <button class="plan-button" data-plan="basic" id="select-basic">プランを選択</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="plan-name">プロフェッショナル</div>
+                        <div class="plan-price">¥9,800</div>
+                        <div class="plan-period">月額</div>
+                        <ul class="plan-features">
+                            <li>高度なアナリティクス</li>
+                            <li>月間10万PV対応</li>
+                            <li>優先サポート</li>
+                            <li>カスタムレポート</li>
+                            <li>API アクセス</li>
+                        </ul>
+                        <button class="plan-button" data-plan="professional" id="select-professional">プランを選択</button>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="plan-name">エンタープライズ</div>
+                        <div class="plan-price">お問い合わせ</div>
+                        <div class="plan-period">カスタム</div>
+                        <ul class="plan-features">
+                            <li>無制限のアナリティクス</li>
+                            <li>無制限PV対応</li>
+                            <li>24/7専用サポート</li>
+                            <li>完全カスタマイズ</li>
+                            <li>オンサイト導入支援</li>
+                        </ul>
+                        <button class="plan-button" data-plan="enterprise" id="select-enterprise">お問い合わせ</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="comparison-table">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #333;">機能比較表</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>機能</th>
+                            <th>ベーシック</th>
+                            <th>プロフェッショナル</th>
+                            <th>エンタープライズ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>リアルタイム分析</td>
+                            <td>○</td>
+                            <td>○</td>
+                            <td>○</td>
+                        </tr>
+                        <tr>
+                            <td>カスタムダッシュボード</td>
+                            <td>×</td>
+                            <td>○</td>
+                            <td>○</td>
+                        </tr>
+                        <tr>
+                            <td>API アクセス</td>
+                            <td>×</td>
+                            <td>○</td>
+                            <td>○</td>
+                        </tr>
+                        <tr>
+                            <td>専用サポート</td>
+                            <td>×</td>
+                            <td>×</td>
+                            <td>○</td>
+                        </tr>
+                        <tr>
+                            <td>オンサイト導入</td>
+                            <td>×</td>
+                            <td>×</td>
+                            <td>○</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section class="cta-section">
+                <h2>今すぐ始めませんか？</h2>
+                <p>14日間の無料トライアルで、すべての機能をお試しいただけます</p>
+                <div class="cta-buttons">
+                    <a href="purchase.html" class="cta-btn" id="start-trial">無料トライアル開始</a>
+                    <a href="newsletter.html" class="cta-btn" id="get-demo">デモを見る</a>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script>
+        // データレイヤーの初期化
+        window.dataLayer = window.dataLayer || [];
+        
+        function gtmPush(eventData) {
+            window.dataLayer.push(eventData);
+            console.log('GTM Event:', eventData);
+        }
+        
+        // ページビューの送信
+        gtmPush({
+            'event': 'page_view',
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_path': window.location.pathname,
+            'page_type': 'info_page'
+        });
+        
+        // プラン選択ボタン
+        document.querySelectorAll('.plan-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const plan = this.dataset.plan;
+                gtmPush({
+                    'event': 'plan_selection',
+                    'plan_type': plan,
+                    'plan_name': this.previousElementSibling.previousElementSibling.previousElementSibling.textContent,
+                    'button_id': this.id
+                });
+                
+                if (plan === 'enterprise') {
+                    alert('エンタープライズプランについてお問い合わせいただき、ありがとうございます。');
+                } else {
+                    alert(`${plan}プランを選択いただき、ありがとうございます。`);
+                }
+            });
+        });
+        
+        // CTAボタン
+        document.querySelectorAll('.cta-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                gtmPush({
+                    'event': 'cta_click',
+                    'cta_type': this.id,
+                    'cta_text': this.textContent,
+                    'page_section': 'bottom_cta'
+                });
+            });
+        });
+        
+        // 機能項目のクリック
+        document.querySelectorAll('.feature-item').forEach(item => {
+            item.addEventListener('click', function() {
+                gtmPush({
+                    'event': 'feature_interaction',
+                    'feature_name': this.dataset.feature,
+                    'feature_title': this.querySelector('.feature-title').textContent
+                });
+            });
+        });
+        
+        // ナビゲーションクリック
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                gtmPush({
+                    'event': 'navigation_click',
+                    'link_text': this.textContent,
+                    'link_url': this.getAttribute('href'),
+                    'link_id': this.id,
+                    'source_page': 'info_page'
+                });
+            });
+        });
+        
+        // スクロール深度測定
+        let scrollDepthMarks = [25, 50, 75, 90];
+        let firedEvents = [];
+        
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+            
+            scrollDepthMarks.forEach(mark => {
+                if (scrollPercent >= mark && !firedEvents.includes(mark)) {
+                    firedEvents.push(mark);
+                    gtmPush({
+                        'event': 'scroll_depth',
+                        'scroll_percentage': mark,
+                        'page_title': document.title,
+                        'page_type': 'info_page'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
