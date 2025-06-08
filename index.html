@@ -237,6 +237,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
         .btn-primary { background: #3498db; color: white; }
@@ -333,9 +336,9 @@
             </section>
             
             <section class="action-buttons">
-                <button class="action-btn btn-primary" id="btn-info" data-category="button" data-action="click" data-label="info">
+                <a href="info.html" class="action-btn btn-primary" id="btn-info" data-category="button" data-action="click" data-label="info">
                     情報を見る
-                </button>
+                </a>
                 <button class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
                     資料ダウンロード
                 </button>
@@ -414,8 +417,25 @@
             'page_path': window.location.pathname
         });
         
-        // ボタンクリックイベント
-        document.querySelectorAll('.action-btn').forEach(button => {
+        // 「情報を見る」リンクのクリックイベント
+        document.getElementById('btn-info').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'button';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+        });
+        
+        // その他のボタンクリックイベント
+        document.querySelectorAll('.action-btn:not(#btn-info)').forEach(button => {
             button.addEventListener('click', function(e) {
                 const category = this.dataset.category || 'button';
                 const action = this.dataset.action || 'click';
