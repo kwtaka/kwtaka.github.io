@@ -339,16 +339,15 @@
                 <a href="info.html" class="action-btn btn-primary" id="btn-info" data-category="button" data-action="click" data-label="info">
                     情報を見る
                 </a>
-                <button class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
+                <a href="download.html" class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
                     資料ダウンロード
-                </button>
+                </a>
                 <a href="newsletter.html" class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="newsletter">
                     メルマガ登録
                 </a>
                 <a href="purchase.html" class="action-btn btn-danger" id="btn-purchase" data-category="ecommerce" data-action="click" data-label="premium-plan">
                     プレミアム購入
                 </a>
-
             </section>
             
             <section class="features" id="features">
@@ -435,6 +434,31 @@
             });
         });
         
+        // 「資料ダウンロード」リンクのクリックイベント
+        document.getElementById('btn-download').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'download';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+            
+            // ファイルダウンロードイベントも送信
+            gtmPush({
+                'event': 'file_download',
+                'file_name': 'company-guide.pdf',
+                'file_extension': 'pdf',
+                'link_url': this.getAttribute('href')
+            });
+        });
+        
         // 「メルマガ登録」リンクのクリックイベント
         document.getElementById('btn-signup').addEventListener('click', function(e) {
             const category = this.dataset.category || 'engagement';
@@ -452,45 +476,28 @@
             });
         });
         
-        // その他のボタンクリックイベント
-        document.querySelectorAll('.action-btn:not(#btn-info):not(#btn-signup)').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault(); // デフォルト動作を一時的に停止
-                
-                const category = this.dataset.category || 'button';
-                const action = this.dataset.action || 'click';
-                const label = this.dataset.label || this.textContent.trim();
-                
-                gtmPush({
-                    'event': 'button_click',
-                    'event_category': category,
-                    'event_action': action,
-                    'event_label': label,
-                    'button_id': this.id,
-                    'button_text': this.textContent.trim()
-                });
-                
-                // 特定のボタンの場合は追加のイベントも送信
-                if (this.id === 'btn-purchase') {
-                    gtmPush({
-                        'event': 'purchase_intent',
-                        'currency': 'JPY',
-                        'value': 9800,
-                        'item_name': 'プレミアムプラン'
-                    });
-                } else if (this.id === 'btn-download') {
-                    gtmPush({
-                        'event': 'file_download',
-                        'file_name': 'company-guide.pdf',
-                        'file_extension': 'pdf',
-                        'link_url': '#download'
-                    });
-                    
-                    // 少し遅延させてから次のページに遷移
-                    setTimeout(() => {
-                       window.location.href = 'purchase.html'; // 
-                    }, 100);
-                }
+        // 「プレミアム購入」リンクのクリックイベント
+        document.getElementById('btn-purchase').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'ecommerce';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+            
+            // 購入意図イベントも送信
+            gtmPush({
+                'event': 'purchase_intent',
+                'currency': 'JPY',
+                'value': 9800,
+                'item_name': 'プレミアムプラン'
             });
         });
         
