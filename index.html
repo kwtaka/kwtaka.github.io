@@ -342,9 +342,9 @@
                 <button class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
                     資料ダウンロード
                 </button>
-                <button class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="newsletter">
+                <a href="newsletter.html" class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="newsletter">
                     メルマガ登録
-                </button>
+                </a>
                 <button class="action-btn btn-danger" id="btn-purchase" data-category="ecommerce" data-action="click" data-label="premium-plan">
                     プレミアム購入
                 </button>
@@ -434,8 +434,25 @@
             });
         });
         
+        // 「メルマガ登録」リンクのクリックイベント
+        document.getElementById('btn-signup').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'engagement';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+        });
+        
         // その他のボタンクリックイベント
-        document.querySelectorAll('.action-btn:not(#btn-info)').forEach(button => {
+        document.querySelectorAll('.action-btn:not(#btn-info):not(#btn-signup)').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault(); // デフォルト動作を一時的に停止
                 
