@@ -10,7 +10,7 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KM4P43ZH');</script>
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
     <!-- End Google Tag Manager -->
     
     <style>
@@ -342,7 +342,7 @@
                 <button class="action-btn btn-success" id="btn-download" data-category="download" data-action="click" data-label="pdf-guide">
                     資料ダウンロード
                 </button>
-                <a href="premium-purchase.html" class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="premium-purchase">
+                <a href="newsletter.html" class="action-btn btn-warning" id="btn-signup" data-category="engagement" data-action="click" data-label="newsletter">
                     メルマガ登録
                 </a>
                 <button class="action-btn btn-danger" id="btn-purchase" data-category="ecommerce" data-action="click" data-label="premium-plan">
@@ -434,7 +434,7 @@
             });
         });
         
-        // 「メルマガ登録」リンクのクリックイベント（プレミアム購入ページに遷移）
+        // 「メルマガ登録」リンクのクリックイベント
         document.getElementById('btn-signup').addEventListener('click', function(e) {
             const category = this.dataset.category || 'engagement';
             const action = this.dataset.action || 'click';
