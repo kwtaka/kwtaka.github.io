@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資料ダウンロード - GTMテストサイト</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .back-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+        }
+        
+        .back-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            padding: 4rem 0;
+        }
+        
+        .download-hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .download-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .download-hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            opacity: 0.9;
+        }
+        
+        .download-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .download-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+        
+        .download-card:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .file-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .download-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .download-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .file-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .download-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+        
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .download-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+            display: none;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        .privacy-note {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .download-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GTMテストサイト</div>
+                <a href="#" class="back-btn" id="back-to-home">← ホームに戻る</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="download-hero">
+                <h1>資料ダウンロード</h1>
+                <p>GTMテストサイトの詳細資料やガイドを無料でダウンロードできます</p>
+            </section>
+            
+            <section class="download-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-downloads">12,456</div>
+                    <div>総ダウンロード数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="this-month">1,234</div>
+                    <div>今月のダウンロード</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avg-rating">4.8</div>
+                    <div>平均評価</div>
+                </div>
+            </section>
+            
+            <section class="download-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #333; font-size: 2rem;">利用可能な資料</h2>
+                <div class="download-grid">
+                    <div class="download-card" data-file="company-guide">
+                        <span class="file-icon">📄</span>
+                        <h3>会社案内資料</h3>
+                        <p>GTMテストサイトの概要、サービス内容、実績などを詳しく紹介した総合資料です。</p>
+                        <div class="file-details">
+                            <span>PDF形式</span>
+                            <span>2.3MB</span>
+                            <span>12ページ</span>
+                        </div>
+                        <a href="#" class="download-btn" id="download-company-guide" data-file="company-guide.pdf">ダウンロード</a>
+                    </div>
+                    
+                    <div class="download-card" data-file="gtm-manual">
+                        <span class="file-icon">📚</span>
+                        <h3>GTM設定マニュアル</h3>
+                        <p>Googleタグマネージャーの基本設定から応用まで、ステップバイステップで解説したマニュアルです。</p>
+                        <div class="file-details">
+                            <span>PDF形式</span>
+                            <span>4.7MB</span>
+                            <span>28ページ</span>
+                        </div>
+                        <a href="#" class="download-btn" id="download-gtm-manual" data-file="gtm-setup-manual.pdf">ダウンロード</a>
+                    </div>
+                    
+                    <div class="download-card" data-file="case-studies">
+                        <span class="file-icon">📊</span>
+                        <h3>導入事例集</h3>
+                        <p>実際にGTMを導入した企業の成功事例とROI改善データをまとめた資料です。</p>
+                        <div class="file-details">
+                            <span>PDF形式</span>
+                            <span>3.1MB</span>
+                            <span>18ページ</span>
+                        </div>
+                        <a href="#" class="download-btn" id="download-case-studies" data-file="case-studies.pdf">ダウンロード</a>
+                    </div>
+                    
+                    <div class="download-card" data-file="price-list">
+                        <span class="file-icon">💰</span>
+                        <h3>料金表・プラン比較</h3>
+                        <p>各種プランの詳細料金と機能比較、導入コストの目安をまとめた資料です。</p>
+                        <div class="file-details">
+                            <span>PDF形式</span>
+                            <span>1.8MB</span>
+                            <span>8ページ</span>
+                        </div>
+                        <a href="#" class="download-btn" id="download-price-list" data-file="price-list.pdf">ダウンロード</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="download-form">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">ダウンロード前の簡単登録</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: #666;">より詳細な資料をお送りするため、簡単な情報をご記入ください</p>
+                
+                <form id="download-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">お名前（姓）*</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">お名前（名）*</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">メールアドレス*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">会社名</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="position">役職</label>
+                            <input type="text" id="position" name="position">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">ご興味のある分野</label>
+                        <select id="interest" name="interest">
+                            <option value="">選択してください</option>
+                            <option value="analytics">Web解析・アナリティクス</option>
+                            <option value="marketing">デジタルマーケティング</option>
+                            <option value="ecommerce">Eコマース</option>
+                            <option value="consulting">コンサルティング</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="form-submit">登録してダウンロード</button>
+                </form>
+                
+                <div class="success-message" id="success-message">
+                    <h3>✅ 登録完了</h3>
+                    <p>ご登録ありがとうございます！資料のダウンロードが可能になりました。</p>
+                </div>
+            </section>
+            
+            <div class="privacy-note">
+                <p>📋 ご記入いただいた情報は、資料提供および今後のサービス向上のためにのみ使用いたします。<br>
+                第三者への提供は一切行いません。<a href="#privacy" style="color: #fff; text-decoration: underline;">プライバシーポリシー</a>をご確認ください。</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GTMテストサイト. All rights reserved. | <a href="#privacy" style="color: #667eea;">プライバシーポリシー</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // データレイヤーの初期化
+        window.dataLayer = window.dataLayer || [];
+        
+        // GTM用の汎用関数
+        function gtmPush(eventData) {
+            window.dataLayer.push(eventData);
+            console.log('GTM Event:', eventData);
+        }
+        
+        // ページビューの送信
+        gtmPush({
+            'event': 'page_view',
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'page_path': window.location.pathname,
+            'page_type': 'download_page'
+        });
+        
+        // フォーム送信処理
+        let isFormSubmitted = false;
+        
+        document.getElementById('download-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // GTMイベント送信
+            gtmPush({
+                'event': 'form_submit',
+                'form_id': 'download-form',
+                'form_name': 'ダウンロード登録フォーム',
+                'form_data': formObject,
+                'conversion_type': 'lead_generation'
+            });
+            
+            // 成功メッセージ表示
+            document.getElementById('success-message').style.display = 'block';
+            this.style.display = 'none';
+            isFormSubmitted = true;
+            
+            // ダウンロードボタンを有効化
+            enableDownloadButtons();
+            
+            // スクロールして成功メッセージを表示
+            document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // ダウンロードボタンの有効化
+        function enableDownloadButtons() {
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+                btn.style.background = 'rgba(255, 255, 255, 0.3)';
+            });
+        }
+        
+        // ダウンロードボタンクリック
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (!isFormSubmitted) {
+                    alert('資料をダウンロードするには、まず上記フォームにご記入ください。');
+                    document.getElementById('download-form').scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+                
+                const fileName = this.dataset.file;
+                const fileType = this.closest('.download-card').dataset.file;
+                
+                // GTMイベント送信
+                gtmPush({
+                    'event': 'file_download',
+                    'file_name': fileName,
+                    'file_type': fileType,
+                    'file_extension': 'pdf',
+                    'download_category': 'marketing_materials',
+                    'user_action': 'download_click'
+                });
+                
+                // コンバージョンイベント
+                gtmPush({
+                    'event': 'conversion',
+                    'conversion_type': 'download',
+                    'conversion_value': fileName,
+                    'currency': 'JPY',
+                    'value': 0
+                });
+                
+                // ダウンロード実行のシミュレーション
+                const link = document.createElement('a');
+                link.href = '#'; // 実際のファイルURLに置き換え
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // ダウンロード完了メッセージ
+                setTimeout(() => {
+                    alert(`${fileName} のダウンロードを開始しました！`);
+                }, 500);
+                
+                // ダウンロード数を更新（デモ用）
+                updateDownloadStats();
+            });
+        });
+        
+        // ダウンロード統計の更新
+        function updateDownloadStats() {
+            const totalEl = document.getElementById('total-downloads');
+            const thisMonthEl = document.getElementById('this-month');
+            
+            const currentTotal = parseInt(totalEl.textContent.replace(',', ''));
+            const currentMonth = parseInt(thisMonthEl.textContent.replace(',', ''));
+            
+            totalEl.textContent = (currentTotal + 1).toLocaleString();
+            thisMonthEl.textContent = (currentMonth + 1).toLocaleString();
+        }
+        
+        // ホームに戻るボタン
+        document.getElementById('back-to-home').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            gtmPush({
+                'event': 'navigation_click',
+                'link_text': 'ホームに戻る',
+                'link_type': 'back_button',
+                'page_exit': true
+            });
+            
+            // 実際のホームページURLに置き換え
+            window.history.back();
+        });
+        
+        // スクロール深度の測定
+        let scrollDepthMarks = [25, 50, 75, 90];
+        let firedEvents = [];
+        
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+            
+            scrollDepthMarks.forEach(mark => {
+                if (scrollPercent >= mark && !firedEvents.includes(mark)) {
+                    firedEvents.push(mark);
+                    gtmPush({
+                        'event': 'scroll_depth',
+                        'scroll_percentage': mark,
+                        'page_title': document.title,
+                        'page_type': 'download_page'
+                    });
+                }
+            });
+        });
+        
+        // ページ滞在時間の測定
+        let timeOnPage = 0;
+        const timeIntervals = [10, 30, 60, 120]; // 秒
+        let timeFiredEvents = [];
+        
+        setInterval(() => {
+            timeOnPage += 5;
+            timeIntervals.forEach(interval => {
+                if (timeOnPage >= interval && !timeFiredEvents.includes(interval)) {
+                    timeFiredEvents.push(interval);
+                    gtmPush({
+                        'event': 'timing',
+                        'timing_category': 'engagement',
+                        'timing_variable': 'time_on_download_page',
+                        'timing_value': interval,
+                        'page_title': document.title
+                    });
+                }
+            });
+        }, 5000);
+        
+        // ページ読み込み完了イベント
+        window.addEventListener('load', function() {
+            gtmPush({
+                'event': 'page_loaded',
+                'page_type': 'download_page',
+                'load_time': performance.timing.loadEventEnd - performance.timing.navigationStart
+            });
+        });
+        
+        // 初期状態でダウンロードボタンを無効化
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.style.opacity = '0.6';
+            btn.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+</html>
