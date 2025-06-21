@@ -254,6 +254,7 @@
         .btn-warning { background: #f39c12; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
         .btn-info { background: #17a2b8; color: white; }
+        .btn-line { background: #00b900; color: white; }
         
         .action-btn:hover {
             transform: translateY(-2px);
@@ -383,6 +384,9 @@
                 </a>
                 <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7" class="action-btn btn-info" id="btn-reservation" data-category="appointment" data-action="click" data-label="medical-reservation" target="_blank">
                     医療予約サイト
+                </a>
+                <a href="https://liff.line.me/2006388917-E3AWM25q" class="action-btn btn-line" id="btn-line-reservation" data-category="appointment" data-action="click" data-label="line-reservation" target="_blank">
+                    LINE予約
                 </a>
             </section>
             
@@ -559,6 +563,31 @@
                 'link_url': this.getAttribute('href'),
                 'link_text': this.textContent.trim(),
                 'link_category': 'medical_reservation'
+            });
+        });
+        
+        // 「LINE予約」リンクのクリックイベント
+        document.getElementById('btn-line-reservation').addEventListener('click', function(e) {
+            const category = this.dataset.category || 'appointment';
+            const action = this.dataset.action || 'click';
+            const label = this.dataset.label || this.textContent.trim();
+            
+            gtmPush({
+                'event': 'button_click',
+                'event_category': category,
+                'event_action': action,
+                'event_label': label,
+                'button_id': this.id,
+                'button_text': this.textContent.trim(),
+                'destination_url': this.getAttribute('href')
+            });
+            
+            // 外部リンククリック（LINE予約）のイベントも送信
+            gtmPush({
+                'event': 'outbound_click',
+                'link_url': this.getAttribute('href'),
+                'link_text': this.textContent.trim(),
+                'link_category': 'line_reservation'
             });
         });
         
