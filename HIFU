@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医療ハイフ - 切らないリフトアップ治療</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button.web {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button.web:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button.line {
+            background: linear-gradient(45deg, #00B900, #00D600);
+            box-shadow: 0 10px 30px rgba(0, 185, 0, 0.3);
+        }
+
+        .cta-button.line:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 185, 0, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* 特徴セクション */
+        .features {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d3748;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 効果セクション */
+        .effects {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 100%);
+        }
+
+        .effects-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .effects-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+
+        .effects-list {
+            list-style: none;
+        }
+
+        .effects-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .effects-list li:before {
+            content: '✓';
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        .effects-visual {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* プロセスセクション */
+        .process {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .process-step h3 {
+            margin: 2rem 0 1rem;
+            color: #2d3748;
+        }
+
+        /* 料金セクション */
+        .pricing {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: white;
+            color: #333;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: '人気';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #667eea;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* フッター */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .effects-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* アニメーション */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* スクロール時のアニメーション */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">Medical HIFU</div>
+            <ul class="nav-links">
+                <li><a href="#features">特徴</a></li>
+                <li><a href="#effects">効果</a></li>
+                <li><a href="#process">施術の流れ</a></li>
+                <li><a href="#pricing">料金</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>切らないリフトアップ<br>医療ハイフ</h1>
+            <p>最新の医療技術で、メスを使わずに<br>たるみを改善し、若々しいお肌を取り戻します</p>
+            <div class="cta-buttons">
+                <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7?landing_event_id=79997913-6df8-47a0-ae0c-c3c328832dae" class="cta-button web" target="_blank">🌐 WEB予約</a>
+                <a href="https://liff.line.me/2006388917-p6jbw73y" class="cta-button line" target="_blank">📱 LINE予約</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">医療ハイフの特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🔬</div>
+                    <h3>最新医療技術</h3>
+                    <p>FDA承認済みの医療機器を使用し、安全で効果的な治療を提供します。専門医による施術で安心してお受けいただけます。</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">⚡</div>
+                    <h3>ダウンタイムなし</h3>
+                    <p>メスを使わない非侵襲的な治療のため、施術後すぐに日常生活に戻れます。お仕事やプライベートへの影響を最小限に抑えます。</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🎯</div>
+                    <h3>ピンポイント照射</h3>
+                    <p>超音波エネルギーを皮膚の深部に正確に照射し、コラーゲンの生成を促進。自然で持続的なリフトアップ効果を実現します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 効果セクション -->
+    <section class="effects" id="effects">
+        <div class="container">
+            <div class="effects-content">
+                <div class="effects-text animate-on-scroll">
+                    <h2>期待できる効果</h2>
+                    <ul class="effects-list">
+                        <li>フェイスラインの引き締め</li>
+                        <li>ほうれい線の改善</li>
+                        <li>目元のたるみ解消</li>
+                        <li>首のシワ・たるみ改善</li>
+                        <li>毛穴の引き締め</li>
+                        <li>肌のハリ・弾力向上</li>
+                    </ul>
+                </div>
+                <div class="effects-visual animate-on-scroll">
+                    <div>
+                        <h3>Before & After</h3>
+                        <p>施術前後の変化をご実感いただけます</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プロセスセクション -->
+    <section class="process" id="process">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">施術の流れ</h2>
+            <div class="process-steps">
+                <div class="process-step animate-on-scroll" data-step="1">
+                    <h3>カウンセリング</h3>
+                    <p>お悩みや希望をお聞きし、お肌の状態を詳しく診察します。治療方針を丁寧にご説明いたします。</p>
+                </div>
+                <div class="process-step animate-on-scroll" data-step="2">
+                    <h3>施術準備</h3>
+                    <p>クレンジング・洗顔を行い、施術部位をマーキングします。痛みを軽減するため、麻酔クリームを塗布します。</p>
+                </div>
+                <div class="process-step animate-on-scroll" data-step="3">
+                    <h3>ハイフ照射</h3>
+                    <p>医療用ハイフ機器を使用し、超音波エネルギーを皮膚の深部に照射します。施術時間は約30-60分です。</p>
+                </div>
+                <div class="process-step animate-on-scroll" data-step="4">
+                    <h3>アフターケア</h3>
+                    <p>施術後の注意事項をご説明し、保湿ケアを行います。経過観察のため、定期的なフォローアップを行います。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 料金セクション -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">料金プラン</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card animate-on-scroll">
+                    <h3>ライトプラン</h3>
+                    <div class="price">¥89,000<span>/回</span></div>
+                    <p>フェイスライン集中ケア<br>初回限定特別価格</p>
+                    <div class="cta-buttons">
+                        <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7?landing_event_id=79997913-6df8-47a0-ae0c-c3c328832dae" class="cta-button web" target="_blank">🌐 WEB予約</a>
+                        <a href="https://liff.line.me/2006388917-p6jbw73y" class="cta-button line" target="_blank">📱 LINE予約</a>
+                    </div>
+                </div>
+                <div class="pricing-card featured animate-on-scroll">
+                    <h3>スタンダードプラン</h3>
+                    <div class="price">¥149,000<span>/回</span></div>
+                    <p>顔全体の包括的ケア<br>最も人気のプラン</p>
+                    <div class="cta-buttons">
+                        <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7?landing_event_id=79997913-6df8-47a0-ae0c-c3c328832dae" class="cta-button web" target="_blank">🌐 WEB予約</a>
+                        <a href="https://liff.line.me/2006388917-p6jbw73y" class="cta-button line" target="_blank">📱 LINE予約</a>
+                    </div>
+                </div>
+                <div class="pricing-card animate-on-scroll">
+                    <h3>プレミアムプラン</h3>
+                    <div class="price">¥199,000<span>/回</span></div>
+                    <p>顔・首・デコルテ<br>トータルアンチエイジング</p>
+                    <div class="cta-buttons">
+                        <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7?landing_event_id=79997913-6df8-47a0-ae0c-c3c328832dae" class="cta-button web" target="_blank">🌐 WEB予約</a>
+                        <a href="https://liff.line.me/2006388917-p6jbw73y" class="cta-button line" target="_blank">📱 LINE予約</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>お問い合わせ</h3>
+                    <p>📞 0120-XXX-XXX</p>
+                    <p>📧 info@medical-hifu.com</p>
+                    <p>🕒 平日 9:00-18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>クリニック情報</h3>
+                    <p>〒XXX-XXXX<br>
+                    東京都渋谷区XXX-XX-XX<br>
+                    XXXビル 5階</p>
+                    <p>JR渋谷駅 徒歩5分</p>
+                </div>
+                <div class="footer-section">
+                    <h3>診療時間</h3>
+                    <p>月-金: 10:00-19:00<br>
+                    土: 10:00-17:00<br>
+                    日・祝: 休診</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Medical HIFU Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // スクロール時のアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ヘッダーの透明度制御
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // CTAボタンのクリック効果
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // ボタンクリック時の視覚的フィードバック
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
