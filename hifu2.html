@@ -1,1 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIFU治療キャンペーン | 美容クリニック</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ヘーダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .phone {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .phone:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .campaign-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.6);
+        }
+        
+        .line-button {
+            background: linear-gradient(45deg, #00c851, #007e33);
+            box-shadow: 0 10px 30px rgba(0,200,81,0.4);
+        }
+        
+        .line-button:hover {
+            box-shadow: 0 15px 40px rgba(0,200,81,0.6);
+        }
+        
+        /* 症例写真セクション */
+        .cases-section {
+            background: white;
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .case-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .case-image {
+            height: 250px;
+            background: linear-gradient(45deg, #f0f2f5, #e8eaf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            position: relative;
+        }
+        
+        .before-after {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .before, .after {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .before {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .after {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+        
+        .before::before {
+            content: 'BEFORE';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .after::before {
+            content: 'AFTER';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(102,126,234,0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .case-info {
+            padding: 30px;
+        }
+        
+        .case-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .case-details {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .case-result {
+            background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        /* 特徴セクション */
+        .features-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 100px 0;
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        /* 料金セクション */
+        .pricing-section {
+            background: white;
+            padding: 100px 0;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .original-price {
+            font-size: 1.5rem;
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        .campaign-price {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .price-note {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* フッター */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .campaign-price {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘーダー -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">美容クリニック</div>
+                <a href="tel:03-1234-5678" class="phone">📞 03-1234-5678</a>
+            </div>
+        </div>
+    </header>
 
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <div class="campaign-badge">🎉 期間限定キャンペーン実施中！</div>
+            <h1>HIFU治療で<br>理想のフェイスラインを</h1>
+            <p class="subtitle">メスを使わずにリフトアップ・小顔効果を実現</p>
+            <div class="cta-buttons">
+                <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button" target="_blank" rel="noopener noreferrer">
+                    🌐 WEB予約
+                </a>
+                <a href="https://liff.line.me/2006388917-p6jbw73y/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button line-button" target="_blank" rel="noopener noreferrer">
+                    📱 LINE予約
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 症例写真セクション -->
+    <section class="cases-section">
+        <div class="container">
+            <h2 class="section-title">症例写真</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-image">
+                        <div class="before-after">
+                            <div class="before">
+                                <span>施術前の写真<br>（フェイスライン）</span>
+                            </div>
+                            <div class="after">
+                                <span>施術後の写真<br>（シャープになったライン）</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-info">
+                        <h3 class="case-title">30代女性 - フェイスライン改善</h3>
+                        <p class="case-details">施術回数: 1回 / 施術時間: 60分</p>
+                        <div class="case-result">
+                            <strong>効果:</strong> フェイスラインが明確になり、小顔効果を実感
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-image">
+                        <div class="before-after">
+                            <div class="before">
+                                <span>施術前の写真<br>（目元・頬）</span>
+                            </div>
+                            <div class="after">
+                                <span>施術後の写真<br>（リフトアップ効果）</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-info">
+                        <h3 class="case-title">40代女性 - 全顔リフトアップ</h3>
+                        <p class="case-details">施術回数: 1回 / 施術時間: 90分</p>
+                        <div class="case-result">
+                            <strong>効果:</strong> 目元のたるみ改善、頬の位置が上がりハリが向上
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-image">
+                        <div class="before-after">
+                            <div class="before">
+                                <span>施術前の写真<br>（二重あご）</span>
+                            </div>
+                            <div class="after">
+                                <span>施術後の写真<br>（すっきりとしたライン）</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-info">
+                        <h3 class="case-title">50代女性 - 二重あご改善</h3>
+                        <p class="case-details">施術回数: 1回 / 施術時間: 45分</p>
+                        <div class="case-result">
+                            <strong>効果:</strong> 二重あごが改善され、横顔のラインが美しく
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-image">
+                        <div class="before-after">
+                            <div class="before">
+                                <span>施術前の写真<br>（首周り）</span>
+                            </div>
+                            <div class="after">
+                                <span>施術後の写真<br>（引き締まった首元）</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-info">
+                        <h3 class="case-title">45代女性 - 首周りの引き締め</h3>
+                        <p class="case-details">施術回数: 1回 / 施術時間: 40分</p>
+                        <div class="case-result">
+                            <strong>効果:</strong> 首周りのたるみが改善、デコルテラインが美しく
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <div class="cta-buttons">
+                    <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button" target="_blank" rel="noopener noreferrer">
+                        🌐 WEB予約
+                    </a>
+                    <a href="https://liff.line.me/2006388917-p6jbw73y/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button line-button" target="_blank" rel="noopener noreferrer">
+                        📱 LINE予約
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">HIFUの特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3 class="feature-title">メスを使わない</h3>
+                    <p>切らずにリフトアップ効果を実現。ダウンタイムがほとんどありません。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">即効性がある</h3>
+                    <p>施術直後から効果を実感でき、3ヶ月後により明確な結果が現れます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">自然な仕上がり</h3>
+                    <p>自分のコラーゲン生成を促進するため、自然で美しい結果を得られます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 料金セクション -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">キャンペーン料金</h2>
+            <div class="pricing-card">
+                <div class="original-price">通常価格 ¥150,000</div>
+                <div class="campaign-price">¥89,000</div>
+                <div class="price-note">キャンペーン期間中限定価格</div>
+                <p style="margin-bottom: 30px;">※初回限定・全顔1回の料金（税込）</p>
+                <div class="cta-buttons">
+                    <a href="https://reservation.medical-force.com/c/08b62a71c6d0495e9e689d786a8c1af7/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button" target="_blank" rel="noopener noreferrer">
+                        🌐 WEB予約
+                    </a>
+                    <a href="https://liff.line.me/2006388917-p6jbw73y/reservations/new?menu_ids=201bbfd5-b300-4aed-a26f-e32a59b020b8" class="cta-button line-button" target="_blank" rel="noopener noreferrer">
+                        📱 LINE予約
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <h3 style="margin-bottom: 30px;">無料カウンセリング実施中</h3>
+            <p style="font-size: 1.5rem; margin-bottom: 20px;">📞 03-1234-5678</p>
+            <p>平日: 10:00-19:00 / 土日祝: 10:00-18:00</p>
+            <p style="margin-top: 30px;">〒100-0001 東京都千代田区千代田1-1-1</p>
+        </div>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.case-card, .feature-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
